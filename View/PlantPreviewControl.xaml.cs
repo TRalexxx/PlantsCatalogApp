@@ -38,8 +38,6 @@ namespace PlantsCatalogApp.View
         public PlantPreviewControl()
         {
             InitializeComponent();
-            //LocalNameTB.Text = LocalName;
-            //ScientNameTB.Text = ScientName;
         }
     }
 }

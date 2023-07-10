@@ -26,5 +26,7 @@ namespace PlantsCatalogApp
             InitializeComponent();
             this.DataContext = new MainVM();
         }
+
+        
     }
 }

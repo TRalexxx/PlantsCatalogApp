@@ -29,10 +29,11 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <StackPanel>
-            <TextBox Margin="5,0,0,0" Width="180" VerticalAlignment="Center"  materialDesign:HintAssist.Hint="Enter keywords for search"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" Foreground="#DDEDEDED" />
-            <Button  Width="auto" Content="_Search" IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource AncestorType={x:Type Window}, Mode=FindAncestor}}"
+            <TextBox Name="searchTB"  Margin="5,0,0,0" VerticalAlignment="Center"  materialDesign:HintAssist.Hint="Enter keywords for search"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" Foreground="#DDEDEDED"
+                     Text="{Binding SearchStr}"/>
+            <Button Name="SearchBtn" Width="auto" Content="_Search" IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource AncestorType={x:Type Window}, Mode=FindAncestor}}"
                     Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                    ToolTip="Search plant" />
+                    ToolTip="Search plant" Command="{Binding SearchCommand}" />
         </StackPanel>
 
         <Grid Grid.Column="1" Grid.Row="1" ScrollViewer.CanContentScroll="True" DataContext="{Binding SelectedPlant}" mah:ScrollViewerHelper.IsHorizontalScrollWheelEnabled="True" ScrollViewer.VerticalScrollBarVisibility="Auto">
