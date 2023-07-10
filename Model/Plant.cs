@@ -60,6 +60,15 @@ namespace PlantsCatalogApp.Model
             set { growingArea = value; OnPropertyChanged("GrowingArea"); }
         }
 
+        private string photoUri;
+
+        public string PhotoUri
+        {
+            get { return photoUri; }
+            set { photoUri = value; OnPropertyChanged("PhotoUri"); }
+        }
+
+
         public Plant()
         {
             Id = 0;
@@ -69,6 +78,7 @@ namespace PlantsCatalogApp.Model
             positiveEffects = string.Empty;
             negativeEffects = string.Empty;
             growingArea = string.Empty;
+            photoUri = string.Empty;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
