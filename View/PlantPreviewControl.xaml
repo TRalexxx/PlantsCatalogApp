@@ -1,0 +1,16 @@
+﻿<UserControl x:Class="PlantsCatalogApp.View.PlantPreviewControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PlantsCatalogApp.View"
+             mc:Ignorable="d">
+    <Grid>
+    <Border>
+        <StackPanel>
+                <TextBlock Name="LocalNameTB"  Style="{StaticResource MaterialDesignBody2TextBlock}" Text="{Binding LocalName, RelativeSource={RelativeSource AncestorType=local:PlantPreviewControl}}" Foreground="#FFEFEFEF" />
+                <TextBlock Name="ScientNameTB"  Style="{StaticResource MaterialDesignBody2TextBlock}" Text="{Binding ScientName, RelativeSource={RelativeSource AncestorType=local:PlantPreviewControl}}" Foreground="#FFEFEFEF"/>
+        </StackPanel>
+    </Border>
+    </Grid>
+</UserControl>

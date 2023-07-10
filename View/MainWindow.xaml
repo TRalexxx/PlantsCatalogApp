@@ -6,7 +6,9 @@
         xmlns:local="clr-namespace:PlantsCatalogApp"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
         xmlns:viewmodel="clr-namespace:PlantsCatalogApp.ViewModel" 
-        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" x:Class="PlantsCatalogApp.MainWindow"
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" 
+        xmlns:view="clr-namespace:PlantsCatalogApp.View" 
+        x:Class="PlantsCatalogApp.MainWindow"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="1000" 
         d:DataContext="{d:DesignInstance Type={x:Type viewmodel:MainVM}}"
@@ -63,5 +65,12 @@
             </StackPanel>
         </Grid>
 
+        <ListBox Grid.Row="1" ItemsSource="{Binding Plants}" Foreground="#FFEFEFEF" SelectedItem="{Binding SelectedPlant}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <view:PlantPreviewControl LocalName="{Binding Path=LocalName}" ScientName="{Binding Path=ScientName}"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </Grid>
 </Window>
