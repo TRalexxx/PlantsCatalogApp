@@ -10,7 +10,7 @@
         xmlns:view="clr-namespace:PlantsCatalogApp.View" 
         x:Class="PlantsCatalogApp.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="1000" 
+        Title="Plants Catalog" Width="1100"
         d:DataContext="{d:DesignInstance Type={x:Type viewmodel:MainVM}}"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
      TextElement.FontWeight="Regular"
@@ -31,7 +31,7 @@
         <StackPanel>
             <TextBox Name="searchTB"  Margin="5,0,0,0" VerticalAlignment="Center"  materialDesign:HintAssist.Hint="Enter keywords for search"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" Foreground="#DDEDEDED"
                      Text="{Binding SearchStr}"/>
-            <Button Name="SearchBtn" Width="auto" Content="_Search" IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource AncestorType={x:Type Window}, Mode=FindAncestor}}"
+            <Button Name="SearchBtn" Width="auto" Content="_Search" 
                     Style="{StaticResource MaterialDesignRaisedDarkButton}"
                     ToolTip="Search plant" Command="{Binding SearchCommand}" />
         </StackPanel>
@@ -54,13 +54,19 @@
                         Style="{StaticResource MaterialDesignFilledTextBox}" Foreground="#DDEFEFEF" FontSize="18" Text="{Binding ScientName, UpdateSourceTrigger=PropertyChanged}"/>
                     <TextBox  VerticalAlignment="Top"  materialDesign:HintAssist.HelperText="GrowingArea" TextWrapping="Wrap" Margin="0,5"
                         Style="{StaticResource MaterialDesignFilledTextBox}" Foreground="#DDEFEFEF" FontSize="18" Text="{Binding GrowingArea, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock Margin="0,8,0,0" Padding="5,2" Style="{StaticResource MaterialDesignSubtitle2TextBlock}"  Text="Photo Uri:" FontSize="12" Foreground="#FFEFEFEF"/>
+                    <TextBox Padding="5" VerticalAlignment="Stretch"  materialDesign:HintAssist.Hint="Photo Uri" AcceptsReturn="True"
+                    SpellCheck.IsEnabled="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Foreground="#FFEFEFEF" FontSize="13" Text="{Binding PhotoUri, UpdateSourceTrigger=PropertyChanged}" />
                 </StackPanel>
             </Grid>
             <StackPanel Grid.Row="1">
+                <TextBlock Padding="5,2" Style="{StaticResource MaterialDesignSubtitle2TextBlock}"  Text="Description:" FontStyle="Italic" Foreground="#FFEFEFEF"/>
                 <TextBox Padding="5" VerticalAlignment="Stretch"  materialDesign:HintAssist.Hint="Description" AcceptsReturn="True"
                     SpellCheck.IsEnabled="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Foreground="#FFEFEFEF" FontSize="14" Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock Padding="5,2" Style="{StaticResource MaterialDesignSubtitle2TextBlock}"  Text="Positive effects:" FontStyle="Italic" Foreground="#FFEFEFEF"/>
                 <TextBox Padding="5" VerticalAlignment="Stretch"  materialDesign:HintAssist.Hint="Positive effects" AcceptsReturn="True"
                     SpellCheck.IsEnabled="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Foreground="#FFEFEFEF" FontSize="14" Text="{Binding PositiveEffects, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock Padding="5,2" Style="{StaticResource MaterialDesignSubtitle2TextBlock}"  Text="Negative effects:" FontStyle="Italic" Foreground="#FFEFEFEF"/>
                 <TextBox Padding="5" VerticalAlignment="Stretch"  materialDesign:HintAssist.Hint="Negatice effects" AcceptsReturn="True"
                     SpellCheck.IsEnabled="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Foreground="#FFEFEFEF" FontSize="14" Text="{Binding NegativeEffects, UpdateSourceTrigger=PropertyChanged}" />
             </StackPanel>
@@ -73,5 +79,33 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+        <Grid Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Margin="3,0,0,0">
+                <Button Margin="1" Width="100" HorizontalAlignment="Left" Content="_Add" Command="{Binding AddCommand}"
+  IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+  Style="{StaticResource MaterialDesignRaisedDarkButton}"
+  ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" />
+                <Button Margin="1,0" Grid.Column="1"  Width="100" HorizontalAlignment="Left" VerticalAlignment="Top"  Content="_Delete" Command="{Binding DeleteCommand}"
+  IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+  Style="{StaticResource MaterialDesignRaisedDarkButton}"
+  ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" />
+            </StackPanel>
+            <StackPanel Grid.Column="1" Margin="1,0">
+                <Button Grid.Column="1" Margin="0,1" Width="100" HorizontalAlignment="Left" VerticalAlignment="Top"  Content="_Update" Command="{Binding UpdateCommand}"
+  IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+  Style="{StaticResource MaterialDesignRaisedDarkButton}"
+  ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" />
+                <Button Grid.Column="1" Margin="0,1" Width="100" HorizontalAlignment="Left" VerticalAlignment="Top"  Content="_Discard" Command="{Binding DiscardCommand}"
+  IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+  Style="{StaticResource MaterialDesignRaisedDarkButton}"
+  ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" />
+
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>

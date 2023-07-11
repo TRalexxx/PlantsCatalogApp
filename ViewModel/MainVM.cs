@@ -48,6 +48,55 @@ namespace PlantsCatalogApp.ViewModel
             }
         }
 
+        private RelayCommand addCommand;
+
+        public RelayCommand AddCommand
+        {
+            get
+            {
+                if (addCommand == null)
+                    addCommand = new RelayCommand(AddPlant);
+
+                return addCommand;
+            }
+        }
+
+        private RelayCommand deleteCommand;
+        public RelayCommand DeleteCommand
+        {
+            get
+            {
+                if (deleteCommand == null)
+                    deleteCommand = new RelayCommand(DeletePlant);
+
+                return deleteCommand;
+            }
+        }
+
+        private RelayCommand updateCommand;
+        public RelayCommand UpdateCommand
+        {
+            get
+            {
+                if (updateCommand == null)
+                    updateCommand = new RelayCommand(UpdatePlant);
+
+                return updateCommand;
+            }
+        }
+
+        private RelayCommand discardCommand;
+        public RelayCommand DiscardCommand
+        {
+            get
+            {
+                if (discardCommand == null)
+                    discardCommand = new RelayCommand(DiscardChanges);
+
+                return discardCommand;
+            }
+        }
+
         public MainVM()
         {
             using (connect = new DBConnect())
@@ -114,8 +163,8 @@ namespace PlantsCatalogApp.ViewModel
                             {
                                 Plants.Add(plant);
                             }
-                            
-                            
+
+
                         }
                     }
                     else
@@ -133,11 +182,97 @@ namespace PlantsCatalogApp.ViewModel
 
                     }
                 }
+            }
+        }
+
+        public void AddPlant()
+        {
+            using (connect = new DBConnect())
+            {
+                connect.Plants.Add(new Plant() { });
+                connect.SaveChanges();
+
+                Plants.Clear();
+
+                if (!connect.Plants.IsNullOrEmpty())
+                {
+                    foreach (Plant plant in connect.Plants)
+                    {
+                        Plants.Add(plant);
+                    }
+                }
+
+                if (!Plants.IsNullOrEmpty())
+                    selectedPlant = Plants.LastOrDefault();
+            }
+        }
+
+        public void DeletePlant()
+        {
+            using (connect = new DBConnect())
+            {
+                connect.Remove(selectedPlant);
+                connect.SaveChanges();
+
+                Plants.Clear();
+
+                if (!connect.Plants.IsNullOrEmpty())
+                {
+                    foreach (Plant plant in connect.Plants)
+                    {
+                        Plants.Add(plant);
+                    }
+                }
+
                 if (!Plants.IsNullOrEmpty())
                     selectedPlant = Plants[0];
             }
         }
 
+        public void UpdatePlant()
+        {
+            using (connect = new DBConnect())
+            {
+                int selectedId = SelectedPlant.Id;
+                connect.Update(selectedPlant);
+                connect.SaveChanges();
+
+                Plants.Clear();
+
+                if (!connect.Plants.IsNullOrEmpty())
+                {
+                    foreach (Plant plant in connect.Plants)
+                    {
+                        Plants.Add(plant);
+                    }
+                }
+
+                SelectedPlant = Plants.FirstOrDefault(x => x.Id.Equals(selectedId));
+            }
+        }
+
+        public void DiscardChanges()
+        {
+            using (connect = new DBConnect())
+            {
+                Plant temp = connect.Plants.FirstOrDefault(x => x.Id.Equals(SelectedPlant.Id));
+
+                int selectedId = SelectedPlant.Id;                
+
+                Plants.Clear();
+
+                if (!connect.Plants.IsNullOrEmpty())
+                {
+                    foreach (Plant plant in connect.Plants)
+                    {
+                        Plants.Add(plant);
+                    }
+                }
+
+                SelectedPlant = Plants.FirstOrDefault(x => x.Id.Equals(selectedId));
+            }
+
+        }
 
     }
 }
