@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PlantsCatalogApp.Model;
 
@@ -10,9 +11,11 @@ using PlantsCatalogApp.Model;
 namespace PlantsCatalogApp.Migrations
 {
     [DbContext(typeof(DBConnect))]
-    partial class DBConnectModelSnapshot : ModelSnapshot
+    [Migration("20230711144150_M3")]
+    partial class M3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

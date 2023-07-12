@@ -8,8 +8,8 @@
     <Grid>
     <Border>
         <StackPanel>
-                <TextBlock Name="LocalNameTB"  Style="{StaticResource MaterialDesignBody2TextBlock}" Text="{Binding LocalName, RelativeSource={RelativeSource AncestorType=local:PlantPreviewControl}}" Foreground="#FFEFEFEF" />
-                <TextBlock Name="ScientNameTB"  Style="{StaticResource MaterialDesignBody2TextBlock}" Text="{Binding ScientName, RelativeSource={RelativeSource AncestorType=local:PlantPreviewControl}}" Foreground="#FFEFEFEF"/>
+                <TextBlock Name="LocalNameTB"  Style="{StaticResource MaterialDesignBody2TextBlock}" Text="{Binding LocalName, RelativeSource={RelativeSource AncestorType=local:PlantPreviewControl}}" />
+                <TextBlock Name="ScientNameTB"  Style="{StaticResource MaterialDesignBody2TextBlock}" Text="{Binding ScientName, RelativeSource={RelativeSource AncestorType=local:PlantPreviewControl}}"/>
         </StackPanel>
     </Border>
     </Grid>

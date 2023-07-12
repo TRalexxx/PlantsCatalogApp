@@ -1,16 +1,14 @@
-﻿using GalaSoft.MvvmLight.Command;
-using Microsoft.EntityFrameworkCore;
+﻿using CommunityToolkit.Mvvm.Input;
 using Microsoft.IdentityModel.Tokens;
 using PlantsCatalogApp.Model;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+using MaterialDesignThemes.Wpf;
+using System.Windows.Controls;
+using System.Windows;
 
 namespace PlantsCatalogApp.ViewModel
 {
@@ -97,6 +95,43 @@ namespace PlantsCatalogApp.ViewModel
             }
         }
 
+        private bool isDark;
+
+        public bool IsDark
+        {
+            get { return isDark; }
+            set
+            {
+                isDark = value;
+                OnPropertyChanged("IsDark");
+            }
+        }
+
+        private RelayCommand themeChangeCommand;
+        public RelayCommand ThemeChangeCommand
+        {
+            get
+            {
+                if (themeChangeCommand == null)
+                    themeChangeCommand = new RelayCommand(ThemeChange);
+
+                return themeChangeCommand;
+            }
+        }
+
+        //private RelayCommand logInCommand;
+
+        //public RelayCommand LogInCommand { 
+        //    get {
+        //        if (logInCommand == null)
+        //            logInCommand = new RelayCommand(LogIn);
+
+        //        return logInCommand; 
+        //    } 
+            
+        //}
+
+
         public MainVM()
         {
             using (connect = new DBConnect())
@@ -112,7 +147,7 @@ namespace PlantsCatalogApp.ViewModel
 
                 if (!Plants.IsNullOrEmpty())
                     selectedPlant = Plants[0];
-            }
+            }        
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -274,5 +309,57 @@ namespace PlantsCatalogApp.ViewModel
 
         }
 
+        public void ThemeChange()
+        {
+            PaletteHelper palette = new PaletteHelper();
+
+            ITheme theme = palette.GetTheme();
+
+            if(isDark)
+            {
+                theme.SetBaseTheme(Theme.Dark);
+            }
+            else
+            {
+                theme.SetBaseTheme(Theme.Light);
+            }
+            palette.SetTheme(theme);
+        }
+
+        //public void LogIn()
+        //{
+        //    using (connect = new DBConnect())
+        //    {
+        //        List<User> users = connect.Users.ToList();
+
+        //        if (LoginTextBox.Text.Length > 0 && users.Any(x => x.Name.Equals(LoginTextBox.Text)))
+        //        {
+        //            User user = new User();
+        //            user = users.FirstOrDefault(x => x.Name.Equals(LoginTextBox.Text));
+        //            if (user != null && user.Password.Equals(PasswordBox.Password))
+        //            {
+        //                isLogin = true;
+
+        //                LocalNameTB.IsEnabled = true;
+        //                ScientNameTB.IsEnabled = true;
+        //                GrowingAreaTB.IsEnabled = true;
+        //                PhotoUriTBlock.Visibility = Visibility.Visible;
+        //                PhotoUriTBox.Visibility = Visibility.Visible;
+        //                DescriptionTB.IsEnabled = true;
+        //                PositiveEffectsTB.IsEnabled = true;
+        //                NegativeEffectsTB.IsEnabled = true;
+
+        //                AddBtn.Visibility = Visibility.Visible;
+        //                DeleteBtn.Visibility = Visibility.Visible;
+        //                UpdateBtn.Visibility = Visibility.Visible;
+        //                DiscardBtn.Visibility = Visibility.Visible;
+
+        //            }
+        //            else return;
+        //        }
+
+
+        //    }
+        //}
     }
 }
