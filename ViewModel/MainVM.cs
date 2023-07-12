@@ -9,6 +9,8 @@ using System.Runtime.CompilerServices;
 using MaterialDesignThemes.Wpf;
 using System.Windows.Controls;
 using System.Windows;
+using Microsoft.EntityFrameworkCore.Query.Internal;
+using PlantsCatalogApp.View;
 
 namespace PlantsCatalogApp.ViewModel
 {
@@ -21,6 +23,21 @@ namespace PlantsCatalogApp.ViewModel
         private DBConnect connect;
 
         private string searchStr;
+
+
+        private string passwordStr;
+        public string PasswordStr
+        {
+            get { return passwordStr; }
+            set { passwordStr = value; OnPropertyChanged("PasswordStr"); }
+        }
+
+        private string loginStr;
+        public string LoginStr
+        {
+            get { return loginStr; }
+            set { loginStr = value; OnPropertyChanged("LoginStr"); }
+        }
 
         public string SearchStr
         {
@@ -119,17 +136,57 @@ namespace PlantsCatalogApp.ViewModel
             }
         }
 
-        //private RelayCommand logInCommand;
+        private bool isElementEnable;
 
-        //public RelayCommand LogInCommand { 
-        //    get {
-        //        if (logInCommand == null)
-        //            logInCommand = new RelayCommand(LogIn);
+        public bool IsElementEnable
+        {
+            get { return isElementEnable; }
+            set { isElementEnable = value; OnPropertyChanged("IsElementEnable"); }
+        }
 
-        //        return logInCommand; 
-        //    } 
-            
-        //}
+        private Visibility visibility;
+        public Visibility Visibility
+        {
+            get
+            {
+                return visibility;
+            }
+            set
+            {
+                visibility = value;
+
+                OnPropertyChanged("Visibility");
+            }
+        }
+
+
+        private RelayCommand logInCommand;
+
+        public RelayCommand LogInCommand
+        {
+            get
+            {
+                if (logInCommand == null)
+                    logInCommand = new RelayCommand(LogIn);
+
+                return logInCommand;
+            }
+
+        }
+
+        private RelayCommand logOutCommand;
+
+        public RelayCommand LogOutCommand
+        {
+            get
+            {
+                if (logOutCommand == null)
+                    logOutCommand = new RelayCommand(LogOut);
+
+                return logOutCommand;
+            }
+
+        }
 
 
         public MainVM()
@@ -147,7 +204,8 @@ namespace PlantsCatalogApp.ViewModel
 
                 if (!Plants.IsNullOrEmpty())
                     selectedPlant = Plants[0];
-            }        
+            }
+            Visibility = Visibility.Hidden;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -326,40 +384,37 @@ namespace PlantsCatalogApp.ViewModel
             palette.SetTheme(theme);
         }
 
-        //public void LogIn()
-        //{
-        //    using (connect = new DBConnect())
-        //    {
-        //        List<User> users = connect.Users.ToList();
+        
 
-        //        if (LoginTextBox.Text.Length > 0 && users.Any(x => x.Name.Equals(LoginTextBox.Text)))
-        //        {
-        //            User user = new User();
-        //            user = users.FirstOrDefault(x => x.Name.Equals(LoginTextBox.Text));
-        //            if (user != null && user.Password.Equals(PasswordBox.Password))
-        //            {
-        //                isLogin = true;
+        public void LogIn()
+        {
+            using(connect = new DBConnect())
+            {
+                List<User> users = connect.Users.ToList();
 
-        //                LocalNameTB.IsEnabled = true;
-        //                ScientNameTB.IsEnabled = true;
-        //                GrowingAreaTB.IsEnabled = true;
-        //                PhotoUriTBlock.Visibility = Visibility.Visible;
-        //                PhotoUriTBox.Visibility = Visibility.Visible;
-        //                DescriptionTB.IsEnabled = true;
-        //                PositiveEffectsTB.IsEnabled = true;
-        //                NegativeEffectsTB.IsEnabled = true;
-
-        //                AddBtn.Visibility = Visibility.Visible;
-        //                DeleteBtn.Visibility = Visibility.Visible;
-        //                UpdateBtn.Visibility = Visibility.Visible;
-        //                DiscardBtn.Visibility = Visibility.Visible;
-
-        //            }
-        //            else return;
-        //        }
+                if (loginStr.Length > 0 && users.Any(x => x.Name.Equals(loginStr)))
+                {
+                    User user = new User();
+                    user = users.FirstOrDefault(x => x.Name.Equals(loginStr));
+                    if (user != null && user.Password.Equals(passwordStr))
+                    {
+                        loginStr = string.Empty; 
+                        passwordStr = string.Empty;
+                        
+                        Visibility = Visibility.Visible;
+                        IsElementEnable = true;
+                    }
+                    else return;
+                }
 
 
-        //    }
-        //}
+            }
+        }
+
+        public void LogOut()
+        {
+            Visibility = Visibility.Hidden;
+            IsElementEnable = false;
+        }
     }
 }
