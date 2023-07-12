@@ -7,10 +7,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using MaterialDesignThemes.Wpf;
-using System.Windows.Controls;
 using System.Windows;
-using Microsoft.EntityFrameworkCore.Query.Internal;
-using PlantsCatalogApp.View;
 
 namespace PlantsCatalogApp.ViewModel
 {
